@@ -1,24 +1,24 @@
-using Core.Managers;
+using Core.Events.Handlers;
 using UnityEngine;
 
 namespace Core.UI
 {
     [RequireComponent(typeof(RectTransform))]
-    public class SafeAreaResizer : MonoBehaviour
+    public class SafeAreaResizer : MonoBehaviour, IAspectChangeHandler
     {
         [SerializeField] private RectTransform _rectTransform;
 
         private void OnEnable()
         {
-            CameraManager.Instance.AspectRatioChange += OnAspectRatioChanged;
+            // CameraManager.Instance.AspectRatioChange += OnAspectRatioChanged;
         }
 
         private void OnDisable()
         {
-            CameraManager.Instance.AspectRatioChange -= OnAspectRatioChanged;
+            // CameraManager.Instance.AspectRatioChange -= OnAspectRatioChanged;
         }
 
-        private void OnAspectRatioChanged(float currentAspectRatio)
+        public void OnAspectRatioChanged(float aspectRatio)
         {
             var safeArea = Screen.safeArea;
             
